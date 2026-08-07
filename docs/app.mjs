@@ -14,13 +14,24 @@ quoteButton.addEventListener('click', () => {
     flow.querySelector('#pay').addEventListener('click', () => showPaidResult(quote));
   } catch (error) {
     flow.classList.remove('hidden');
-    flow.textContent = error.message;
+    flow.innerHTML = `<article class="receipt"><div class="receipt-meta"><span>TERMINAL ERROR</span><span>INPUT REJECTED</span></div><div class="receipt-body"><div><p class="kicker">ACTION REQUIRED</p><h2>Use a public YouTube link.</h2><p>${escapeHtml(error.message)}</p></div><p class="processing">Fix the source URL, then issue a new challenge.</p></div></article>`;
   }
 });
 
 function showPaidResult(quote) {
   const result = completeDemoPayment(quote);
   flow.innerHTML = `
-    <article class="step"><div class="step-number">2</div><div><p class="eyebrow">PAYMENT RETRY</p><h2>202 Accepted</h2><p>Demo credential accepted. A real agent would retry with <code>Authorization: Payment &lt;credential&gt;</code>.</p><pre>${JSON.stringify(result.receipt, null, 2)}</pre></div></article>
-    <article class="step"><div class="step-number">3</div><div><p class="eyebrow">RENDER COMPLETE</p><h2>Three clips, ready to collect.</h2><div class="clips">${result.clips.map((clip) => `<a class="clip" href="${clip.file}" target="_blank"><span class="play">▶</span><span><strong>${clip.title}</strong><small>${clip.duration} vertical clip</small></span></a>`).join('')}</div></div></article>`;
+    <article class="receipt receipt-success">
+      <div class="receipt-meta"><span>RECEIPT 202 / JOB ACCEPTED</span><span>PAYMENT VERIFIED</span></div>
+      <div class="receipt-body">
+        <div><p class="kicker">SETTLEMENT RECEIPT</p><h2>Job is in the queue.</h2><p>This sandbox receipt mirrors the response an agent gets after its payment credential verifies.</p></div>
+        <pre>${escapeHtml(JSON.stringify(result.receipt, null, 2))}</pre>
+      </div>
+      <div class="receipt-action"><span>STATUS: COMPLETE / TEST OUTPUTS ATTACHED</span><span class="processing">3 CLIPS RENDERED</span></div>
+    </article>
+    <section class="clips" aria-label="Rendered test clips">${result.clips.map((clip) => `<a class="clip" href="${clip.file}" target="_blank" rel="noopener"><span><span class="play" aria-hidden="true">▶</span><strong>${escapeHtml(clip.title)}</strong><small>${clip.duration} / 9:16 test render</small></span></a>`).join('')}</section>`;
+}
+
+function escapeHtml(value) {
+  return String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#039;');
 }

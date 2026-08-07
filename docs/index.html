@@ -1,29 +1,79 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" style="color-scheme: dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>clip.pay, MPP flow demo</title>
+  <meta name="theme-color" content="#10100d">
+  <title>clip.pay / Processing Terminal</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main>
-    <nav><span class="logo">clip.pay</span><span class="pill">MPP flow explorer</span></nav>
-    <section class="hero">
-      <p class="eyebrow">AGENT-NATIVE VIDEO CLIPPING</p>
-      <h1>Pay for clips like an API call.</h1>
-      <p class="subhead">Paste a public YouTube link. See the exact MPP challenge an agent receives, authorize a demo payment, then collect vertical clips.</p>
-      <p class="notice"><strong>Sandbox:</strong> This browser demo simulates Tempo payment. It cannot charge a wallet.</p>
-      <div class="request-card">
-        <label for="url">Source URL</label>
-        <div class="input-row"><input id="url" value="https://www.youtube.com/watch?v=dQw4w9WgXcQ" aria-label="Public YouTube URL"><button id="quote">Generate quote</button></div>
-        <p class="hint">Demo contract: YouTube, ≤15 min, 3 captioned 9:16 clips, $0.50.</p>
+  <a class="skip-link" href="#terminal">Skip to terminal</a>
+  <main id="terminal">
+    <header class="topline">
+      <a class="wordmark" href="./" translate="no">CLIP.PAY</a>
+      <p>AGENT-NATIVE MEDIA PROCESSING <span aria-hidden="true">/</span> MPP SANDBOX</p>
+      <span class="signal"><i aria-hidden="true"></i> TERMINAL ONLINE</span>
+    </header>
+
+    <section class="masthead" aria-labelledby="page-title">
+      <div class="masthead-copy">
+        <p class="kicker">CLIP PROCESSING TERMINAL <span>01</span></p>
+        <h1 id="page-title">Turn a link into <em>distribution.</em></h1>
+        <p class="deck">Issue a machine payment challenge, authorize the job, then receive a compact set of ready-to-post clips.</p>
+      </div>
+      <div class="raster dither" role="img" aria-label="Abstract dithered video processing raster">
+        <span class="raster-stamp">SIGNAL / 09:16<br>FRAME EXTRACTION<br>CAPTION BURN-IN</span>
       </div>
     </section>
+
+    <section class="terminal-grid" aria-labelledby="new-job-heading">
+      <form class="console" onsubmit="return false">
+        <div class="console-head">
+          <p class="kicker" id="new-job-heading">NEW JOB</p>
+          <span>QUEUE: READY</span>
+        </div>
+        <label for="url">PUBLIC SOURCE URL</label>
+        <div class="input-row">
+          <input id="url" name="source-url" type="url" autocomplete="off" spellcheck="false" value="https://www.youtube.com/watch?v=dQw4w9WgXcQ" aria-describedby="url-help">
+          <button id="quote" type="button">Issue Challenge <span aria-hidden="true">↗</span></button>
+        </div>
+        <p class="input-help" id="url-help">Accepts public YouTube links. URL is bound to the payment challenge before processing.</p>
+      </form>
+
+      <aside class="job-spec" aria-label="Demo job specification">
+        <p class="kicker">MACHINE RECEIPT / DRAFT</p>
+        <dl>
+          <div><dt>PRODUCT</dt><dd>3 vertical clips</dd></div>
+          <div><dt>FORMAT</dt><dd>9:16 / captions burned</dd></div>
+          <div><dt>SOURCE LIMIT</dt><dd>15 min</dd></div>
+          <div><dt>CHARGE</dt><dd>$0.50 demo credit</dd></div>
+        </dl>
+        <p class="sandbox"><strong>Sandbox mode.</strong> This page shows the payment protocol. No wallet is charged.</p>
+      </aside>
+    </section>
+
     <section id="flow" class="flow hidden" aria-live="polite"></section>
+
+    <footer>
+      <span>PROTOCOL: MPP / CHALLENGE → CREDENTIAL → RECEIPT</span>
+      <span>RUN LOCALLY. PAY PROGRAMMATICALLY.</span>
+    </footer>
   </main>
+
   <template id="challenge-template">
-    <article class="step"><div class="step-number">1</div><div><p class="eyebrow">HTTP RESPONSE</p><h2>402 Payment Required</h2><p>Your agent gets a challenge bound to this exact request body.</p><pre id="challenge"></pre><button id="pay">Authorize $0.50 demo payment</button></div></article>
+    <article class="receipt receipt-challenge">
+      <div class="receipt-meta"><span>RECEIPT 402 / PAYMENT REQUIRED</span><span>CHALLENGE ISSUED</span></div>
+      <div class="receipt-body">
+        <div>
+          <p class="kicker">MACHINE RECEIPT</p>
+          <h2>Authorization needed.</h2>
+          <p>Your agent received a payment challenge cryptographically bound to this source URL and job specification.</p>
+        </div>
+        <pre id="challenge"></pre>
+      </div>
+      <div class="receipt-action"><span>SIMULATED TEMPO SETTLEMENT / $0.50</span><button id="pay" type="button">Authorize Demo Job <span aria-hidden="true">↗</span></button></div>
+    </article>
   </template>
   <script type="module" src="app.mjs"></script>
 </body>
