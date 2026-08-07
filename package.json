@@ -1,0 +1,14 @@
+{
+  "name": "mpp-clip-demo",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node src/server.mjs",
+    "test": "node --test test/**/*.test.mjs",
+    "demo": "node src/demo.mjs"
+  },
+  "dependencies": {
+    "hono": "^4.13.0",
+    "mppx": "^0.8.15"
+  }
+}

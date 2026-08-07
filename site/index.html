@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>clip.pay, MPP flow demo</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main>
+    <nav><span class="logo">clip.pay</span><span class="pill">MPP flow explorer</span></nav>
+    <section class="hero">
+      <p class="eyebrow">AGENT-NATIVE VIDEO CLIPPING</p>
+      <h1>Pay for clips like an API call.</h1>
+      <p class="subhead">Paste a public YouTube link. See the exact MPP challenge an agent receives, authorize a demo payment, then collect vertical clips.</p>
+      <p class="notice"><strong>Sandbox:</strong> This browser demo simulates Tempo payment. It cannot charge a wallet.</p>
+      <div class="request-card">
+        <label for="url">Source URL</label>
+        <div class="input-row"><input id="url" value="https://www.youtube.com/watch?v=dQw4w9WgXcQ" aria-label="Public YouTube URL"><button id="quote">Generate quote</button></div>
+        <p class="hint">Demo contract: YouTube, ≤15 min, 3 captioned 9:16 clips, $0.50.</p>
+      </div>
+    </section>
+    <section id="flow" class="flow hidden" aria-live="polite"></section>
+  </main>
+  <template id="challenge-template">
+    <article class="step"><div class="step-number">1</div><div><p class="eyebrow">HTTP RESPONSE</p><h2>402 Payment Required</h2><p>Your agent gets a challenge bound to this exact request body.</p><pre id="challenge"></pre><button id="pay">Authorize $0.50 demo payment</button></div></article>
+  </template>
+  <script type="module" src="app.mjs"></script>
+</body>
+</html>
