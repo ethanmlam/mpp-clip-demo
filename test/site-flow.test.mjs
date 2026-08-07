@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { createQuote, completeDemoPayment } from '../site/flow.mjs';
+import { createQuote, completeDemoPayment } from '../docs/flow.mjs';
 
 test('a supported YouTube request produces an MPP-shaped 402 quote bound to that URL', () => {
   const quote = createQuote('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
